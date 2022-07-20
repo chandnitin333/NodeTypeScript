@@ -93,6 +93,8 @@ npm install -g ts-node
 
 
 
+npm install -save-dev winston
+npm install -save-dev @types/winston
 
 
 
@@ -107,3 +109,14 @@ npm install -g ts-node
 
 
 
+
+
+  //  const  user = await User.findOne(
+        //     {
+        //         email:email,
+
+        //     });
+
+
+
+        winston

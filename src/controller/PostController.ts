@@ -7,10 +7,8 @@ import { getEnviromentVariable } from "../enviroments/env";
 import { Utils } from "../utils/Utils";
 import { ApiResponse } from '../utils/ApiResponse';
 import { resolve } from 'path';
-import {Logger} from '../logger/Logger';
 
-const logger = new  Logger().logger;
-export  class UserController{
+export  class PostController{
 
      /**
      * New user signup process and send verification code to user email.
@@ -70,18 +68,16 @@ export  class UserController{
                 user:user,
                 token:token
             }
-            logger.info("action:User/login",respData);
+            
             res.send(respData);
 
 
         }catch(e){
         
-            console.log(e)
+            
              next(e)
         } 
-        // finally {
-        //     await cleanUp()
-        // }
+        
 
 
      }

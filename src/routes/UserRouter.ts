@@ -17,12 +17,13 @@ export class  userReoutes {
 
     getRoutes(){
         
-         this.router.get('/signup',UserValidator.validSignUp(),GlobalMiddleware.checkError,UserController.signUp);
+        // this.router.get('/signup',UserValidator.validSignUp(),GlobalMiddleware.checkError,UserController.signUp);
     }
 
     postRoutes(){
       
         this.router.post('/signup',UserValidator.validSignUp(),GlobalMiddleware.checkError,UserController.signUp);
+        this.router.post('/login',UserValidator.loginVerify(),GlobalMiddleware.checkError,UserController.login);
     }
 
 }
