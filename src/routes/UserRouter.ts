@@ -1,9 +1,10 @@
 import { Router } from "express";
 import {body} from 'express-validator';
+import { PostController } from "../controller/PostController";
 import { UserController } from "../controller/UserController";
 import { GlobalMiddleware } from "../middleware/GlobalMiddleware";
 import { UserValidator } from "../validators/UserValidator";
-
+import {upload} from '../config/Multer';
 
 export class  userReoutes {
     public router : Router;
@@ -24,6 +25,8 @@ export class  userReoutes {
       
         this.router.post('/signup',UserValidator.validSignUp(),GlobalMiddleware.checkError,UserController.signUp);
         this.router.post('/login',UserValidator.loginVerify(),GlobalMiddleware.checkError,UserController.login);
+
+        this.router.post('/post',upload.array("mediafile"), PostController.newPost);
     }
 
 }

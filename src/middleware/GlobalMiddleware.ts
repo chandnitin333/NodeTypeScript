@@ -4,6 +4,8 @@ import * as jwt from 'jsonwebtoken';
 import { decode } from "punycode";
 import { getEnviromentVariable } from "../enviroments/env";
 
+import multer  = require('multer');
+
 export class GlobalMiddleware
 {
     static checkError(req,res,next){
@@ -35,8 +37,47 @@ export class GlobalMiddleware
             }))
             
         } catch (error) {
+           
             next(error);
         }
     }
+
+   
+
+    static  async uploadFiles(req,res,next){
+        try{
+            const multerStorage = multer.diskStorage({
+                destination: (req, file, cb) => {
+                cb(null, "uploads/");
+                },
+                filename: (req, file, cb) => {
+                const ext = file.mimetype.split("/")[1];
+                cb(null, `/rd_ad-${file.fieldname}-${Date.now()}.${ext}`);
+                },
+            });
+        
+            const multerFilter = (req, file, cb) => {
+                if (file.mimetype.split("/")[1] != "pdf") {
+                cb(null, true);
+                } else {
+                cb(new Error("Not a PDF File!!"), false);
+                }
+            };
+          
+            const  upload =   multer({
+                storage: multerStorage,
+                fileFilter: multerFilter,
+            });
+
+            const uploadFiless = upload.single("mediafile");
+            console.log("gettttt",uploadFiless);
+            if(uploadFiless){
+                next();
+            }
+        }catch(ex){
+            next(ex);
+        }
+    }
+
 
 }

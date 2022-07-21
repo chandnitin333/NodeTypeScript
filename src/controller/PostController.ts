@@ -7,6 +7,10 @@ import { getEnviromentVariable } from "../enviroments/env";
 import { Utils } from "../utils/Utils";
 import { ApiResponse } from '../utils/ApiResponse';
 import { resolve } from 'path';
+import Post from '../models/Post';
+import * as moment from 'moment';
+
+
 
 export  class PostController{
 
@@ -18,27 +22,39 @@ export  class PostController{
      * @param {object} next - callback function to handle next request.
      */
 
-     static  async signUp(req,res,next){
+     static  async newPost(req,res,next){
         try{
             
-            const  email = req.body.email;
-            const  username = req.body.username;
-            const  password = req.body.password;
-            const verificationToken = Utils.genericVerificationToken();
-            const encryptedPassword = await Utils.encryptPassword(password);
-           
-            const data ={
-                email:email,
-                username:username,
-                password:encryptedPassword,
-                verification_token:verificationToken,
-                verification_token_time: Date.now() + new Utils().MAX_TOKEN_TIME
-
+            const  userCode = req.body.posted_by;
+            const  post     = req.body.post;
+            const  post_description = req.body.post_description;
+            const  content_type =  req.body.content_type;
+            // const  media    =  req.body.media;
+            const  posted_by = req.body.posted_by;
+          
+            const media =  {
+                url: req.files[0].path,
+                type: req.files[0].mimetype.split("/")[0],
+                thumb_url:req.files[0].path
             }
-            console.log(data);
-            let user = await new User(data).save();
-            ApiResponse.successResponseWithData(res,"Registration Successfully",user);
-            // res.send(user);
+             
+            
+            const data ={
+                
+                post:post,
+                post_description:post_description,
+                content_type:content_type,
+                media:media,
+                status:'In-process',
+                published_time:moment().format("YYYY-MM-DD HH:mm:ss"),
+                is_publish: 1,
+                posted_by:posted_by,
+             
+            }
+            // res.send(data);
+            let user = await new Post(data).save();
+            ApiResponse.successResponseWithData(res,"Your post submitted successfully",user);
+            
 
         }catch(e){
             next(e)
@@ -46,41 +62,6 @@ export  class PostController{
         
      }
 
-     static  async login(req,res,next){
-         let password =  req.body.password;
-         let user = req.user;
-         
-        try{
-            await Utils.compairPassword(
-                {
-                    plainPassword:password,
-                    encryptedPassword:user.password
-                }
-            );
-            const data = {
-                user_id : user._id,
-                email : user.email
-            }
-            
-            const token =  Jwt.sign(data,getEnviromentVariable().jwt_secret,{expiresIn:'120d'});
-
-            const respData = {
-                user:user,
-                token:token
-            }
-            
-            res.send(respData);
-
-
-        }catch(e){
-        
-            
-             next(e)
-        } 
-        
-
-
-     }
-
-
+    
+      
 }

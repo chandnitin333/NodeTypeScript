@@ -1,6 +1,7 @@
 import { rejects } from "assert";
 import * as Bcrypt from "bcrypt";
 import { resolve } from "path/posix";
+import multer = require("multer");
 
 export class Utils{
     public MAX_TOKEN_TIME = 3600000;
@@ -47,6 +48,9 @@ export class Utils{
             }));
         })
     }
+
 }
+
+
 
 

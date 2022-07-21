@@ -2,11 +2,11 @@ import * as mongoose from 'mongoose'
 import { model } from 'mongoose';
 
 const postSchema = new mongoose.Schema({
-    user_code:{type:String,required:true},
+    
     post:{type:String,required:true},
     post_description:{type:String,required:true},
     posted_by:{type:String,required:true},
-    media_type:{type:String,required:true},
+    content_type:{type:String,required:true},
     media:{type:Object,required:false},
     status:{type:String,required:true},
     published_time:{type:Date,required:true},

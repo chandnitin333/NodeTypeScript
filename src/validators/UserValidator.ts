@@ -38,6 +38,25 @@ export class UserValidator{
         return[body('username','Verification token is required').isString()]
     } 
 
+    static postVerify(){
+        try{
+            
+        return[
+
+            
+            body('post','post is required').notEmpty(),
+            body('post_description','post description is required').notEmpty(),
+            body('content_type','content type is required').notEmpty(),
+            body('posted_by','posted by is required').notEmpty()
+
+        ]
+    }catch(e){
+        console.log(e);
+    }
+
+    }
+
+
 
 
 }

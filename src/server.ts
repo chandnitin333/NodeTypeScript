@@ -6,6 +6,9 @@ import * as mongoose from 'mongoose';
 import { getEnviromentVariable} from './enviroments/env';
 import UserRouter from './routes/UserRouter';
 
+import fileUpload = require("express-fileupload")
+
+
 
 export class Server{
     public  app : express.Application = express();
@@ -30,11 +33,12 @@ export class Server{
 
     configBodyParser(){
         
-        this.app.use(express.json());
+        // this.app.use(express.json());
         this.app.use(bodyParser.urlencoded({extended:true}));  //qs lybary
-
-        
+        // this.app.use(fileUpload({ createParentPath: true }));        
         // this.app.use(bodyParser.json());
+
+
     }
 
     setRoutes(){
@@ -55,7 +59,8 @@ export class Server{
             res.status(errorStatus).json({
                
                 message:error.message || 'Something went worng Please try again..!',
-                status_code:errorStatus
+                status_code:errorStatus,
+                error_message:error.stack
             })
             
         })
