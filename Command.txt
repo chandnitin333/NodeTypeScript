@@ -91,10 +91,23 @@ npm install -save-dev @types/ts-node
 
 npm install -g ts-node
 
-
-
 npm install -save-dev winston
 npm install -save-dev @types/winston
+
+
+npm install -save-dev moment
+npm install -save-dev @types/moment
+
+
+npm install -save-dev express-fileupload
+npm install -save-dev @types/express-fileupload
+
+
+
+
+npm install -save-dev multer
+npm install -save-dev @types/multer
+
 
 
 
