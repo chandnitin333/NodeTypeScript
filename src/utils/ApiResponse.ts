@@ -17,6 +17,13 @@ export class ApiResponse{
         };
         return res.status(200).json(resData);
     }
+    static responseResult(res,data){
+        var resData = {
+            code: 200,           
+            data: data
+        };
+        return res.status(200).json(resData);
+    }
 
 
     static ErrorResponse = function (res, msg) {

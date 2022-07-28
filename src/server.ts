@@ -5,7 +5,7 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import { getEnviromentVariable} from './enviroments/env';
 import UserRouter from './routes/UserRouter';
-
+import  cors = require('cors');
 import fileUpload = require("express-fileupload")
 
 
@@ -36,7 +36,11 @@ export class Server{
         // this.app.use(express.json());
         this.app.use(bodyParser.urlencoded({extended:true}));  //qs lybary
         // this.app.use(fileUpload({ createParentPath: true }));        
-        // this.app.use(bodyParser.json());
+        this.app.use(bodyParser.json());
+        this.app.use(cors());
+        // this.app.use(cors({
+        //     origin: 'http://localhost:4200/'
+        // }));
 
 
     }
@@ -60,7 +64,7 @@ export class Server{
                
                 message:error.message || 'Something went worng Please try again..!',
                 status_code:errorStatus,
-                error_message:error.stack
+                // error_message:error.stack
             })
             
         })
