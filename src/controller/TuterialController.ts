@@ -76,19 +76,67 @@ export  class TuterialController{
 
      static async getTutDetailsById(req,res,next){
         try {
-            let id =  req.params('id');         
+            let id =  req.params.id;         
             
             const tutDetails = await  Tuterial.findOne({"_id":id}).select({'__v':0});
-            const data = {
-                postDetails:tutDetails
-            }
-            ApiResponse.responseResult(res,data);
+            // const data = {
+            //     postDetails:tutDetails
+            // }
+            res.send(tutDetails);
+            // ApiResponse.responseResult(res,data);
         } catch (error) {
             next(error)
         } 
         
      }
 
+     static async deltedTut(req,res,next){
+        try {
+            let id =  req.params.id;         
+            
+
+            
+            const tutDetails = await  Tuterial.find({"_id":id}).remove();
+           
+            res.send(tutDetails);
+            if(tutDetails){
+                ApiResponse.notFoundResponse(res,"Deleted Successfully");
+            }else{
+                ApiResponse.ErrorResponse(res,"Something went wrong.")
+            }
+        } catch (error) {
+            next(error)
+        } 
+        
+     }
+
+
+     static async updateTut(req,res,next){
+        try {
+            let id =  req.params.id;         
+               
+            const filter = { _id: id };
+            const update = req.body ;
+            console.log(update);
+           
+            let doc = await Tuterial.findOneAndUpdate(filter, update, {
+                returnOriginal: false
+            });
+
+
+            // const tutDetails = await  Tuterial.find({"_id":id}).remove();
+           
+            res.send(doc);
+            // if(tutDetails){
+            //     ApiResponse.notFoundResponse(res,"Deleted Successfully");
+            // }else{
+            //     ApiResponse.ErrorResponse(res,"Something went wrong.")
+            // }
+        } catch (error) {
+            next(error)
+        } 
+        
+     }
 
      static  async addTuterial(req,res,next){
         try{

@@ -5,7 +5,7 @@ const Tuterials = new mongoose.Schema({
     
     title:{type:String,required:true},
     description:{type:String,required:true},
-    publish:{type:Boolean,required:false},
+    published:{type:Boolean,required:false},
     created_at:{type:Date,required:true,default: new Date()},
     updated_at:{type:Date,required:true,default: new Date()},
 });

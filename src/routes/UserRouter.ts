@@ -14,6 +14,8 @@ export class  userReoutes {
         this.router = Router();
         this.getRoutes();
         this.postRoutes();
+        this.deleteRoute();
+        this.putRoute();
     }
 
 
@@ -35,17 +37,17 @@ export class  userReoutes {
         this.router.post('/post',upload.array("mediafile"),UserValidator.postVerify(),GlobalMiddleware.checkError, PostController.newPost);
         this.router.post('/getPosts',GlobalMiddleware.authenticate, PostController.getPostList);
         this.router.post('/getPostById',PostController.getPostDetailsById);
-
-
         this.router.post('/tutorials',TuterialController.addTuterial);
-       
-
-
-        
-
         
     }
 
+    deleteRoute(){
+        this.router.delete('/tutorials/:id',TuterialController.deltedTut);
+    }
+    putRoute(){
+        this.router.put('/tutorials/:id',TuterialController.updateTut);
+        
+    }
 }
 
 

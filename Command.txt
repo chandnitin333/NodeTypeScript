@@ -12,7 +12,7 @@ npm install --save-dev typescript
 nano tsconfig.json
 
 
-----------------Added code 
+----------------Added code ======================
 {
   "compilerOptions": {
     "module": "commonjs",
@@ -107,17 +107,6 @@ npm install -save-dev @types/multer
 
 npm install -save-dev cors
 npm install -save-dev @types/cors
-
-
-
-
-
-
-
-
-
-
-
 
 
 
