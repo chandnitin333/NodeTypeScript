@@ -29,6 +29,7 @@ export class  userReoutes {
         
     }
 
+    
     postRoutes(){
       
         this.router.post('/signup',UserValidator.validSignUp(),GlobalMiddleware.checkError,UserController.signUp);
