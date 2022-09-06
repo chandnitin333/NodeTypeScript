@@ -32,17 +32,10 @@ export class Server{
     }
 
     configBodyParser(){
-        
-        // this.app.use(express.json());
+
         this.app.use(bodyParser.urlencoded({extended:true}));  //qs lybary
-        // this.app.use(fileUpload({ createParentPath: true }));        
         this.app.use(bodyParser.json());
         this.app.use(cors());
-        // this.app.use(cors({
-        //     origin: 'http://localhost:4200/'
-        // }));
-
-
     }
 
     setRoutes(){
@@ -58,7 +51,6 @@ export class Server{
 
     handdleErrors(){
         this.app.use((error,req,res,next)=>{
-            
             const errorStatus = req.errorStatus || 500;
             res.status(errorStatus).json({
                
