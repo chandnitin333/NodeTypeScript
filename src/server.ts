@@ -23,6 +23,7 @@ export class Server{
 
     connectMongodb(){
         let databseUrl  = getEnviromentVariable().db_url;
+        mongoose.set("strictQuery", false);
         mongoose.connect(databseUrl).then(()=>{
             console.log("Mongo is connect...!")  
         }).catch((err)=>{
